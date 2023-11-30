@@ -88,5 +88,7 @@ public class Vista extends JFrame {
 
     public void establecerListeners(Controlador controlador) {
         agregarBtn.addActionListener(controlador);
+        editarBtn.addActionListener(controlador);
+        eliminarBtn.addActionListener(controlador);
     }
 }

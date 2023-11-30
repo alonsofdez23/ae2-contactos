@@ -19,8 +19,15 @@ public class Controlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.getAgregarBtn()) {
-            vistaAux = new VistaAux(this);
-            vistaAux.setTitle("Añadir contacto");
+            if (vistaAux == null) {
+                vistaAux = new VistaAux(this);
+                vistaAux.setTitle("Añadir contacto");
+                vistaAux.establecerListeners(this);
+            } else {
+                resetFields();
+                vistaAux.setTitle("Añadir contacto");
+                vistaAux.setVisible(true);
+            }
         }
 
         if (e.getSource() == vistaAux.getOkBtn()) {
@@ -49,7 +56,7 @@ public class Controlador implements ActionListener {
                 vistaAux.setTitle("Editar contacto");
                 insertarDatosTabla();
             } else {
-                JOptionPane.showMessageDialog(vista, "Tiene que seleccionar una fila.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(vista, "Tiene que seleccionar un contacto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
@@ -70,7 +77,7 @@ public class Controlador implements ActionListener {
             DefaultTableModel tableModel = vista.getTableModel();
             tableModel.removeRow(filaSeleccionada);
         } else {
-            JOptionPane.showMessageDialog(vista, "Selecciona un contacto para eliminar.", "Sin selección", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(vista, "Selecciona un contacto para eliminar.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

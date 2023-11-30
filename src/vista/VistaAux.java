@@ -42,7 +42,7 @@ public class VistaAux extends JDialog {
 
         inicializarVariables();
 
-        setVisible(true);
+        // setVisible(true);
     }
 
     private void inicializarVariables() {
@@ -122,5 +122,6 @@ public class VistaAux extends JDialog {
 
     public void establecerListeners(Controlador controlador) {
         okBtn.addActionListener(controlador);
+        cancelarBtn.addActionListener(controlador);
     }
 }
