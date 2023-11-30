@@ -1,2 +1,4 @@
-package controlador;public class Main {
+package controlador;
+
+public class Main {
 }
