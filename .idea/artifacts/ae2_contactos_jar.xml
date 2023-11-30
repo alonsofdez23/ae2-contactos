@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ae2-contactos:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ae2_contactos_jar</output-path>
+    <root id="archive" name="ae2-contactos.jar">
+      <element id="module-output" name="ae2-contactos" />
+    </root>
+  </artifact>
+</component>
