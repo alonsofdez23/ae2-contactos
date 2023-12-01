@@ -36,7 +36,6 @@ public class Controlador implements ActionListener {
             vistaAux.dispose();
             resetFields();
         } else if (e.getSource() == vistaAux.getOkBtn() && "Editar contacto".equals(vistaAux.getTitle())) {
-            System.out.println("Entra por aqui");
             insertarDatosTabla();
             vistaAux.dispose();
             resetFields();
@@ -115,8 +114,6 @@ public class Controlador implements ActionListener {
 
     public void extraerDatosRow() {
         int selectedRow = vista.getRowSelected();
-
-        System.out.println(vista.getRowSelected());
 
         String selectedNombre = vista.getTableModel().getValueAt(selectedRow, 0).toString();
         String selectedTelefono = vista.getTableModel().getValueAt(selectedRow, 1).toString();
