@@ -23,6 +23,7 @@ public class Controlador implements ActionListener {
                 vistaAux = new VistaAux(this);
                 vistaAux.setTitle("Añadir contacto");
                 vistaAux.establecerListeners(this);
+                vistaAux.setVisible(true);
             } else {
                 resetFields();
                 vistaAux.setTitle("Añadir contacto");
@@ -30,12 +31,13 @@ public class Controlador implements ActionListener {
             }
         }
 
-        if (e.getSource() == vistaAux.getOkBtn()) {
-            String nombre = vistaAux.getCampoNombre().getText();
-            String telefono = vistaAux.getCampoTelefono().getText();
-
-            DefaultTableModel tableModel = vista.getTableModel();
-            tableModel.addRow(new String[]{nombre, telefono});
+        if (e.getSource() == vistaAux.getOkBtn() && "Añadir contacto".equals(vistaAux.getTitle())) {
+            insertarDatosTabla();
+            vistaAux.dispose();
+            resetFields();
+        } else if (e.getSource() == vistaAux.getOkBtn() && "Editar contacto".equals(vistaAux.getTitle())) {
+            extraerDatosRow();
+            insertarDatosTabla();
             vistaAux.dispose();
             resetFields();
         }
@@ -48,12 +50,13 @@ public class Controlador implements ActionListener {
             int selectedRow = vista.getRowSelected();
 
             if (selectedRow >= 0) {
-                if(vistaAux==null) {
+                if(vistaAux == null) {
                     vistaAux = new VistaAux(this);
                 } else {
                     vistaAux.setVisible(true);
                 }
                 vistaAux.setTitle("Editar contacto");
+                extraerDatosRow();
                 insertarDatosTabla();
             } else {
                 JOptionPane.showMessageDialog(vista, "Tiene que seleccionar un contacto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -84,15 +87,33 @@ public class Controlador implements ActionListener {
     public void insertarDatosTabla() {
         int selectedRow = vista.getRowSelected();
 
-        if (selectedRow >= 0) {
-            // Seleccionar la fila se encuentra en 'selectedRow'
-            // Puedes acceder a los datos de esa fila a través del modelo de tabla
-            String nombre = vista.getTableModel().getValueAt(selectedRow, 0).toString();
-            String telefono = vista.getTableModel().getValueAt(selectedRow, 1).toString();
+        String nombre = vistaAux.getCampoNombre().getText();
+        String telefono = vistaAux.getCampoTelefono().getText();
 
-            // Asignar los valores a los campos de edición en vistaEditar
-            vistaAux.getCampoNombre().setText(nombre);
-            vistaAux.getCampoTelefono().setText(telefono);
+        if (selectedRow >= 0) {
+            vista.getTableModel().setValueAt(nombre, selectedRow, 0);
+            vista.getTableModel().setValueAt(telefono, selectedRow, 1);
+        } else {
+            DefaultTableModel tableModel = vista.getTableModel();
+            tableModel.addRow(new String[]{nombre, telefono});
         }
+    }
+
+    public void extraerDatosRow() {
+        int selectedRow = vista.getRowSelected();
+
+        System.out.println(vista.getRowSelected());
+
+        String selectedNombre = vista.getTableModel().getValueAt(selectedRow, 0).toString();
+        String selectedTelefono = vista.getTableModel().getValueAt(selectedRow, 1).toString();
+
+        vistaAux.getCampoNombre().setText(selectedNombre);
+        vistaAux.getCampoTelefono().setText(selectedTelefono);
+
+//        String editNombre = vistaAux.getCampoNombre().getText();
+//        String editTelefono = vistaAux.getCampoTelefono().getText();
+//
+//        vista.getTableModel().setValueAt(editNombre, selectedRow, 0);
+//        vista.getTableModel().setValueAt(editTelefono, selectedRow, 1);
     }
 }
