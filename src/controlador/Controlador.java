@@ -32,7 +32,7 @@ public class Controlador implements ActionListener {
         }
 
         if (e.getSource() == vistaAux.getOkBtn() && "Añadir contacto".equals(vistaAux.getTitle())) {
-            insertarDatosTabla();
+            insertarNewDatosTabla();
             vistaAux.dispose();
             resetFields();
         } else if (e.getSource() == vistaAux.getOkBtn() && "Editar contacto".equals(vistaAux.getTitle())) {
@@ -84,6 +84,14 @@ public class Controlador implements ActionListener {
         }
     }
 
+    public void insertarNewDatosTabla() {
+        String nombre = vistaAux.getCampoNombre().getText();
+        String telefono = vistaAux.getCampoTelefono().getText();
+
+        DefaultTableModel tableModel = vista.getTableModel();
+        tableModel.addRow(new String[]{nombre, telefono});
+    }
+
     public void insertarDatosTabla() {
         int selectedRow = vista.getRowSelected();
 
@@ -93,9 +101,6 @@ public class Controlador implements ActionListener {
         if (selectedRow >= 0) {
             vista.getTableModel().setValueAt(nombre, selectedRow, 0);
             vista.getTableModel().setValueAt(telefono, selectedRow, 1);
-        } else {
-            DefaultTableModel tableModel = vista.getTableModel();
-            tableModel.addRow(new String[]{nombre, telefono});
         }
     }
 
