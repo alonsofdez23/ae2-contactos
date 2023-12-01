@@ -36,7 +36,7 @@ public class Controlador implements ActionListener {
             vistaAux.dispose();
             resetFields();
         } else if (e.getSource() == vistaAux.getOkBtn() && "Editar contacto".equals(vistaAux.getTitle())) {
-            extraerDatosRow();
+            System.out.println("Entra por aqui");
             insertarDatosTabla();
             vistaAux.dispose();
             resetFields();
@@ -47,20 +47,29 @@ public class Controlador implements ActionListener {
         }
 
         if (e.getSource() == vista.getEditarBtn()) {
+            vistaAux.setTitle("Editar contacto");
+
             int selectedRow = vista.getRowSelected();
 
-            if (selectedRow >= 0) {
-                if(vistaAux == null) {
-                    vistaAux = new VistaAux(this);
-                } else {
-                    vistaAux.setVisible(true);
-                }
-                vistaAux.setTitle("Editar contacto");
-                extraerDatosRow();
-                insertarDatosTabla();
-            } else {
+            if (!(selectedRow >= 0)) {
                 JOptionPane.showMessageDialog(vista, "Tiene que seleccionar un contacto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                extraerDatosRow();
+                vistaAux.setVisible(true);
             }
+
+//            if (selectedRow >= 0) {
+//                if(vistaAux == null) {
+//                    vistaAux = new VistaAux(this);
+//                } else {
+//                    vistaAux.setVisible(true);
+//                }
+//                vistaAux.setTitle("Editar contacto");
+//                extraerDatosRow();
+//                insertarDatosTabla();
+//            } else {
+//                JOptionPane.showMessageDialog(vista, "Tiene que seleccionar un contacto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//            }
         }
 
         if (e.getSource() == vista.getEliminarBtn()) {
